@@ -8,7 +8,7 @@
 Пример предназначен для использования в образовательных целях 
 или как основа для других проектов **Scala Spark**. Содержит необходимую структуру для сборки исполняемого приложения **java --jar**. 
 В описании к проекту приведены основные пояснения настроек и кода. Для проекта используется локально 
-установленный **Spark ver.3.5.5**. 
+установленный **Spark ver.4.1.1**. 
 
 ## Essence
 Приложение — конвертер файлов формата **parquet** в формат **csv**, с *console-оконным* интерфейсом. Производится чтение **.parquet** файлов по пути, 
@@ -29,12 +29,12 @@
 **[Меню "Exit"](README/exit.md)**  
   
 ## Requirements
-| Инструмент    |Версия|Комментарий|Ресурс|
-|:--------------|:-|:-|:-|
-| Java          |openjdk-17|Openjdk-17 - это (Open Java Development Kit) - это бесплатная реализация платформы Java Standard Edition (Java SE) с открытым исходным кодом |https://openjdk.org/|
-| Scala         |2.12.19|Проверенная стабильная версия, хорошо совместима с OoenJDK-17 (в качестве альтернативы можно использовать 2.12.18 )|https://scala-lang.org/|
-| SBT           |1.11.2| Scala build tool. В качестве альтернативы можно использовать не ниже 1.6.1|https://docs.scala-lang.org/overviews/scala-book/scala-build-tool-sbt.html|  
-| Apache Spark  |3.5.6| Фреймворк с открытым исходным кодом для реализации распределённой обработки данных, входящий в экосистему проектов Hadoop.|https://spark.apache.org/|
+| Инструмент    | Версия     | Комментарий                                                                                                                                  |Ресурс|
+|:--------------|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------|:-|
+| Java          | openjdk-17 | Openjdk-17 - это (Open Java Development Kit) - это бесплатная реализация платформы Java Standard Edition (Java SE) с открытым исходным кодом |https://openjdk.org/|
+| Scala         | 2.13.17    | Проверенная стабильная версия, хорошо совместима с OoenJDK-17 (в качестве альтернативы можно использовать 2.12.18 )                          |https://scala-lang.org/|
+| SBT           | 1.12.9     | Scala build tool. В качестве альтернативы можно использовать не ниже 1.7.1                                                                   |https://docs.scala-lang.org/overviews/scala-book/scala-build-tool-sbt.html|  
+| Apache Spark  | 4.1.1      | Фреймворк с открытым исходным кодом для реализации распределённой обработки данных, входящий в экосистему проектов Hadoop.                   |https://spark.apache.org/|
 
 Про организацию рабочей среды, в которой собирается данный проект, можно прочитать здесь: https://github.com/chulyukin/howto-base-notes)
 
@@ -44,16 +44,16 @@
 cd ~/IdeaProjects
 git clone https://github.com/chulyukin/parquetor_spark.git
 ```
-2) Открыть проект в среде IntelliJ IDEA 2025.1.2  
+2) Открыть проект в среде IntelliJ IDEA 2025.2.6.x  
 3) Далее выполнить команду сборки
 ```console
 assembly
 ```
 ** для получения документации можно выполнить команду doc
-В директории target/scala-2.12, будет собран файл **parquetor-assembly-0.1.0.jar**
+В директории target/scala-2.13, будет собран файл **parquetor-assembly-0.1.1.jar**
 ```console
-ls ~/IdeaProjects/spark-simple-parquet/target/scala-2.12
-# classes parquetor-assembly-0.1.0.jar  sync  update  zinc classes
+ls ~/IdeaProjects/parquetor_spark/target/scala-2.13
+# classes parquetor-assembly-0.1.1.jar  sync  update  zinc classes
 ```
 4) Запуск **parquetor-assembly-0.1.0.jar** на исполнение
 
@@ -65,16 +65,15 @@ ls ~/IdeaProjects/spark-simple-parquet/target/scala-2.12
 spark-submit \
 --master local[2] \
 --class com.proto.parquetor.Main \
---driver-java-options "-Dlog4j.configuration=file:IdeaProjects/Parquetor_spark/src/main/resources/log4j2.properties" \
---conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=file:log4j2.properties" ~/IdeaProjects/Parquetor_spark/target/scala-2.12/parquetor-assembly-0.1.0.jar \
---parquet-dir ~/IdeaProjects/Parquetor_spark/example_parquet
-
+--driver-java-options "-Dlog4j.configuration=file:IdeaProjects/parquetor_spark/src/main/resources/log4j2.properties" \
+--conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=file:log4j2.properties" ~/IdeaProjects/parquetor_spark/target/scala-2.13/parquetor-assembly-0.1.1.jar \
+--parquet-dir ~/IdeaProjects/parquetor_spark/example_parquet
 ```
 Во время выполнения, задача отображается в пользовательском интерфейсе мастера Spark. Пользовательский интерфейс можно просматривать по адресу localhost:4040. http://localhost:4040/jobs/ 
 
 5) Результат (в случае запуска на тестовых источниках _example_parquet_)
 ```console
-ls ~/IdeaProjects/Parquetor_spark/example_parquet/
+ls ~/IdeaProjects/parquetor_spark/example_parquet/
 # example_150plus_columns.parquet  example_second.parquet  userdata3.parquet example_first.parquet  example_third.parquet   yellow_tripdata_2023-08.parquet
 
 ```

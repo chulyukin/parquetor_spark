@@ -1,8 +1,8 @@
 import sbt.Keys.organization
 
-ThisBuild / version := "0.1.0"
+ThisBuild / version := "0.1.1"
 
-ThisBuild / scalaVersion := "2.12.20"
+ThisBuild / scalaVersion := "2.13.17"
 
 lazy val root = (project in file("."))
   .settings(
@@ -11,13 +11,13 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" %% "spark-core" % "3.5.6",
-  "org.apache.spark" %% "spark-sql" % "3.5.6"
+  "org.apache.spark" %% "spark-core" % "4.1.1",
+  "org.apache.spark" %% "spark-sql" % "4.1.1"
 )
 
 libraryDependencies ++= Seq(
-  "org.jline" % "jline-terminal" % "3.22.0",
-  "org.jline" % "jline-reader" % "3.22.0"
+  "org.jline" % "jline-terminal" % "3.25.1",
+  "org.jline" % "jline-reader" % "3.25.1"
 )
 
 assembly / assemblyMergeStrategy := {
